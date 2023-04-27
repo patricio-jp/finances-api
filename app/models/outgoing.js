@@ -1,9 +1,9 @@
-import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../config/mysql.js";
+import { DataTypes, Model } from "sequelize";
 
-export class Income extends Model { }
+export class Outgoing extends Model { }
 
-Income.init({
+Outgoing.init({
     date: {
         type: DataTypes.DATE,
         allowNull: false
@@ -18,7 +18,7 @@ Income.init({
     }
 }, {
     sequelize,
-    modelName: 'Income',
+    modelName: 'Outgoing',
     timestamps: true,
     paranoid: true
 });
