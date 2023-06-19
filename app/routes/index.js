@@ -1,9 +1,10 @@
 import { Router } from "express";
 const router = Router();
 import paymentMethods from "./paymentMethods.js"
-import { paramsValidator } from "../validators/params.js";
+import categories from "./categories.js"
 
-router.use("/payment-methods", paramsValidator, paymentMethods);
+router.use("/payment-methods", paymentMethods);
+router.use("/categories", categories);
 
 router.get('*', (req, res) => {
     res.status(404).send({ error: "Not Found" });

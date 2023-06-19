@@ -4,7 +4,7 @@ import { matchedData } from 'express-validator';
 export const getPaymentMethods = async (req, res) => {
     const params = matchedData(req);
 
-    const quantity = await PaymentMethod.count({ paranoid: params?.includeDeleted ? false : true });
+    const quantity = await PaymentMethod.count({ paranoid: params?.includeDeleted === "true" ? false : true });
     const data = await PaymentMethod.findAll({
         paranoid: params?.includeDeleted === "true" ? false : true,
         limit: params?.pageSize ? parseInt(params.pageSize) : null,
@@ -12,6 +12,7 @@ export const getPaymentMethods = async (req, res) => {
         order: [[params?.orderBy ? params.orderBy : "id", params?.orderDir || "asc"]]
     });
 
+    if (!data) return res.status(404).json({ message: "Payment methods not found" });
     return res.status(200).json({ quantity, data });
 }
 
